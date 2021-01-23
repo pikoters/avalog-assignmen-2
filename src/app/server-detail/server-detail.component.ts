@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DownstreamsService, ServerDetails } from '../downstreams.service';
+import { ConvertionMessage, DownstreamsService, ServerDetails } from '../downstreams.service';
 
 @Component({
   selector: 'app-server-detail',
@@ -8,8 +8,8 @@ import { DownstreamsService, ServerDetails } from '../downstreams.service';
   styleUrls: ['./server-detail.component.scss']
 })
 export class ServerDetailComponent implements OnInit {
-  serverDetails: ServerDetails[] = [];
-
+  serverDetails: Partial<ServerDetails> = {};
+  convertionMessage: Partial<ConvertionMessage> = {};
   
   constructor(
     public rest: DownstreamsService,
@@ -22,6 +22,13 @@ export class ServerDetailComponent implements OnInit {
   getServerDetails(): void {
     this.rest.getServerDetails().subscribe((resp: any) => {
       this.serverDetails = resp;
+      this.rest.convertSystemTime( resp.serverTimeZone , 'Asia/Manila', resp.serverTime).subscribe((resp:any ) => {
+          console.log(resp);
+          this.convertionMessage = resp;
+          this.serverDetails.serverTimeZone = 'Asia/Manila';
+          var date = new Date(resp.toTimestamp * 1000);
+          this.serverDetails.serverTime = date.toLocaleString('en-GB');
+      });
       console.log(this.serverDetails);
     });
   }

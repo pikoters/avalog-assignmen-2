@@ -5,18 +5,11 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const endpoint = 'https://server-details-bff.herokuapp.com/server/';      
+const downstreamEndpoint = 'https://server-details-bff.herokuapp.com/server/';
+const converterEndpoint = 'http://api.timezonedb.com/v2.1/';
+// const endpoint = 'http://localhost:8080/server/'    
 
-const headers = new HttpHeaders({
-  'Access-Control-Allow-Origin':'*'
-  // 'access-control-allow-origin':'server-details-bff.herokuapp.com',
-  // 'Content-Type': 'text/plain',
-  // 'Accept':'*/*',
-  // 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-  // 'Access-Control-Allow-Headers' : 'Origin,Content-Type',
-  // 'Access-Control-Request-Headers' : 'Access-Control-Allow-Methods,Access-Control-Allow-Headers',
-});
-
+const apikey = 'TE4C1PQ375GT'
 
 @Injectable({
   providedIn: 'root'
@@ -46,10 +39,19 @@ export class DownstreamsService {
 
   getServerDetails(): Observable<any> {
     return this.http.
-    get<ServerDetails>(endpoint + 'details').pipe(
+    get<ServerDetails>(downstreamEndpoint + 'details').pipe(
       // map(this.extractData),
       catchError(this.handleError)
     );
+  }
+  
+  convertSystemTime( fromTimeZone: string, toTimeZone: string, epochTime: number): Observable<any> {
+    return this.http.get<ConvertionMessage>( converterEndpoint + 
+              'convert-time-zone\?key\='+ apikey + 
+              '\&format\=json\&from\='+ fromTimeZone +'\&to\=' + toTimeZone + '\&time\=' + epochTime
+    ).pipe(
+      catchError(this.handleError)
+    )
   }
 }
 
@@ -57,4 +59,16 @@ export interface ServerDetails {
   serverTime: string;
   serverDate: string;
   serverTimeZone: string;
+}
+
+export interface ConvertionMessage {
+    status: string;
+    message: string;
+    fromZoneName: string;
+    fromAbbreviation: string;
+    fromTimestamp: number;
+    toZoneName: string;
+    toAbbreviation: string;
+    toTimestamp: number;
+    offset: number;
 }
