@@ -1,0 +1,10 @@
+<p>server-detail</p>
+
+<ul class="serverdetails">
+    <li *ngFor="let sd of serverDetails; let i=index;">
+      <a>
+        <span class="badge">{{i+1}}</span> {{sd.serverTime}} | {{sd.serverDate}} | {{sd.serverTimeZone}}
+      </a>
+     
+    </li>
+  </ul>
