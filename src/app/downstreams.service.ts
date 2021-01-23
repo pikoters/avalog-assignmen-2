@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 const downstreamEndpoint = 'https://server-details-bff.herokuapp.com/server/';
 const converterEndpoint = 'http://api.timezonedb.com/v2.1/';
-// const endpoint = 'http://localhost:8080/server/'    
+    
 
 const apikey = 'TE4C1PQ375GT'
 

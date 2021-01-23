@@ -26,8 +26,8 @@ export class ServerDetailComponent implements OnInit {
           console.log(resp);
           this.convertionMessage = resp;
           this.serverDetails.serverTimeZone = 'Asia/Manila';
-          var date = new Date(resp.toTimestamp * 1000);
-          this.serverDetails.serverTime = date.toLocaleString('en-GB');
+          var date = new Date(resp.toTimestamp *1000);
+          this.serverDetails.serverTime = date.toLocaleString('en-GB').split(',')[1];
       });
       console.log(this.serverDetails);
     });
