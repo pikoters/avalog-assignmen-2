@@ -7,6 +7,11 @@ const routes: Routes = [
     path: 'serverdetails',
     component: ServerDetailComponent,
     data: { title: 'Server details' }
+  }, 
+  { 
+    path: '',
+    redirectTo: '/serverdetails',
+    pathMatch: 'full'
   }
 ];
 

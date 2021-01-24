@@ -23,13 +23,13 @@ export class ServerDetailComponent implements OnInit {
     this.rest.getServerDetails().subscribe((resp: any) => {
       this.serverDetails = resp;
       if(resp.serverTimeZone.includes("UTC"))
-         resp.serverTimeZone = "UTC"
+         resp.serverTimeZone = "Europe/London"
       this.rest.convertSystemTime( resp.serverTimeZone , 'Asia/Manila', resp.serverTime).subscribe((resp:any ) => {
           console.log(resp);
           this.convertionMessage = resp;
           this.serverDetails.serverTimeZone = 'Asia/Manila';
-          var date = new Date(resp.toTimestamp *1000);
-          this.serverDetails.serverTime = date.toLocaleString('en-GB').split(',')[1];
+          var date = new Date(resp.toTimestamp*1000);
+          this.serverDetails.serverTime = date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds();
       });
       console.log(this.serverDetails);
     });
