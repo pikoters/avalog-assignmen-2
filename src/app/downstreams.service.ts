@@ -10,6 +10,10 @@ const converterEndpoint = 'http://api.timezonedb.com/v2.1/';
 
 const apikey = 'TE4C1PQ375GT'
 
+const httpHeaders: HttpHeaders = new HttpHeaders({
+  Accept : 'application/json'
+});
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,9 +48,12 @@ export class DownstreamsService {
   }
   
   convertSystemTime( fromTimeZone: string, toTimeZone: string, epochTime: number): Observable<any> {
+    // let headersz = new Headers({ Accept : 'application/json'});
+    
     return this.http.get<ConvertionMessage>( converterEndpoint + 
               'convert-time-zone\?key\='+ apikey + 
-              '\&format\=json\&from\='+ fromTimeZone +'\&to\=' + toTimeZone + '\&time\=' + epochTime
+              '\&format\=json\&from\='+ fromTimeZone +'\&to\=' + toTimeZone + '\&time\=' + epochTime,
+              { headers: httpHeaders }
     ).pipe(
       catchError(this.handleError)
     )
