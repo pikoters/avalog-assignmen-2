@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { catchError } from 'rxjs/internal/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 const downstreamEndpoint = 'https://server-details-bff.herokuapp.com/server/';
 const converterEndpoint = 'http://api.timezonedb.com/v2.1/';
@@ -16,7 +15,6 @@ const apikey = 'TE4C1PQ375GT'
 })
 export class DownstreamsService {
 
-  // constructor() { }
   constructor(private http: HttpClient) { }
 
 
