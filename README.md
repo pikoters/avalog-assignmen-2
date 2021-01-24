@@ -1,6 +1,23 @@
 # AngularFrontendApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
+This project retrieves a date , time , and timezone from a downstream service.
+
+- time and timezone coming from the downstream service will be converted to local 'Asia/Manila' region by calling an api hosted on `api.timezonedb.com`which will then be displayed.
+
+**Rooms for improvement regarding the requirement / instruction of this assignment.**
+
+- convertion of the time should be orchestrated by the backend service / downstream service. This potentially can improve security especially CORS issue and avoid executing of potentially executing scripts from frontend.
+
+NOTE: This solution involves alllowing cross origin from the backend. Typical for testing. Not a good pattern to be used in acceptance and production.
+
+**Before accessing the site hosted on heroku** [https://angular-serverdetails.herokuapp.com/serverdetails](https://) . **This should be executed belowin chrome this should be executed beforehand** . This will resolved issue regarding the access / execution of a script which involves loading / retrieving of a resource coming from a different source /  domain.
+
+1. Click on the 'i' info icon on the left side of address bar.
+2. Click `Site Settings`
+3. Scroll down to `Insecure content`
+4. Change it from `Blocked (Default)` to `Allow`
+5. Reload the page and try your action again.
+
 
 ## Development server
 
