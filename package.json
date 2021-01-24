@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "export NODE_OPTIONS=--max_old_space_size=4096 && ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
