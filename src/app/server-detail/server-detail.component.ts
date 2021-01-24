@@ -22,6 +22,8 @@ export class ServerDetailComponent implements OnInit {
   getServerDetails(): void {
     this.rest.getServerDetails().subscribe((resp: any) => {
       this.serverDetails = resp;
+      if(resp.serverTimeZone.includes("UTC"))
+         resp.serverTimeZone = "UTC"
       this.rest.convertSystemTime( resp.serverTimeZone , 'Asia/Manila', resp.serverTime).subscribe((resp:any ) => {
           console.log(resp);
           this.convertionMessage = resp;
